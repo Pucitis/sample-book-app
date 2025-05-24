@@ -1,57 +1,53 @@
 pipeline {
     agent any
-
-    parameters{
-        string(name: 'PERSON', defaultValue: 'World', description: 'Who should I say hello to?')
-    }
-    environment {
-        'PATH+EXTRA' = "/opt/homebrew/bin:/usr/local/bin"
-  }
     stages {
         stage('build') {
             steps {
-                echo "Build application is starting"
+                deploy("DEV")
             }
         }
-        stage('deploy-to-dev') {
+        stage('deploy-dev') {
             steps {
-                echo "Bdeployment of node app on dev environment"
-                sh 'docker -v'
+                deploy("DEV")
             }
         }
         stage('test-dev') {
             steps {
-                echo "API test for node app on dev"
+                echo "API test executuon against node application on DEV environment.."
             }
         }
         stage('deploy-stg') {
             steps {
-                echo "API test for node app stg"
+                deploy("STG")
             }
         }
         stage('test-stg') {
             steps {
-                echo "API test for node app stg"
+                echo "API test executuon against node application on STG environment.."
             }
         }
-        stage('deploy-prod') {
+        stage('deploy-prd') {
             steps {
-                echo "Deploy test for node app prod"
+                deploy("PRD")
             }
         }
-        stage('test-prod') {
+        stage('test-prd') {
             steps {
-                echo "API test for node app in prod"
+                echo "API test executuon against node application on PRD environment.."
             }
         }
-       
     }
+    
 }
 
-// Build of application;
-// deployment in “DEV” env;
-// Test execution against DEV env;
-// deployment in “STG” env;
-// Test execution against STG env;
-// deployment in “PRD” env;
-// Test execution against PRD env.
+def build(){
+    echo "Building of node application is starting.."
+}
+
+def deploy(String environment){
+    echo "Deployment of node application on ${environment} environment.."
+}
+
+def test(String environment){
+    echo "API test executuon against node application on ${environment} environment.."
+}
