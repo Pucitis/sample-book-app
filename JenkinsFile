@@ -13,7 +13,7 @@ pipeline {
         stage('deploy-to-dev') {
             steps {
                 echo "Bdeployment of node app on dev environment"
-                sh 'docker 2 run'
+                sh 'docker -v'
             }
         }
         stage('test-dev') {
