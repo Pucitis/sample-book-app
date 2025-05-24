@@ -5,10 +5,49 @@ pipeline {
         string(name: 'PERSON', defaultValue: 'World', description: 'Who should I say hello to?')
     }
     stages {
-        stage('Hello') {
+        stage('build') {
             steps {
-                echo "Hello ${params.PERSON}"
+                echo "Build application is starting"
             }
         }
+        stage('deploy-to-dev') {
+            steps {
+                echo "Bdeployment of node app on dev environment"
+            }
+        }
+        stage('test-dev') {
+            steps {
+                echo "API test for node app on dev"
+            }
+        }
+        stage('deploy-stg') {
+            steps {
+                echo "API test for node app stg"
+            }
+        }
+        stage('test-stg') {
+            steps {
+                echo "API test for node app stg"
+            }
+        }
+        stage('deploy-prod') {
+            steps {
+                echo "Deploy test for node app prod"
+            }
+        }
+        stage('test-prod') {
+            steps {
+                echo "API test for node app in prod"
+            }
+        }
+       
     }
 }
+
+// Build of application;
+// deployment in “DEV” env;
+// Test execution against DEV env;
+// deployment in “STG” env;
+// Test execution against STG env;
+// deployment in “PRD” env;
+// Test execution against PRD env.
