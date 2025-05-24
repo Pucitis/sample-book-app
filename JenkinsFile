@@ -5,7 +5,7 @@ pipeline {
         string(name: 'PERSON', defaultValue: 'World', description: 'Who should I say hello to?')
     }
     environment {
-        PATH = "/opt/homebrew/bin:/usr/local/bin:${env.PATH}"
+        PATH = "/opt/homebrew/bin:/usr/local/bin:${PATH}"
   }
     stages {
         stage('build') {
