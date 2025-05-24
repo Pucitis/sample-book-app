@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                deploy("DEV")
+                buildApp()
             }
         }
         stage('deploy-dev') {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('test-dev') {
             steps {
-                echo "API test executuon against node application on DEV environment.."
+                test("DEV")
             }
         }
         stage('deploy-stg') {
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('test-stg') {
             steps {
-                echo "API test executuon against node application on STG environment.."
+                test("STG")
             }
         }
         stage('deploy-prd') {
@@ -33,15 +33,18 @@ pipeline {
         }
         stage('test-prd') {
             steps {
-                echo "API test executuon against node application on PRD environment.."
+                test("PRD")
             }
         }
     }
-    
 }
 
-def build(){
+def buildApp(){
     echo "Building of node application is starting.."
+    sh "docker build -t martinowl/sample-book-app ."
+
+    echo "Pushing image to docker registry.."
+    sh "docker push martinowl/sample-book-app"
 }
 
 def deploy(String environment){
